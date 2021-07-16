@@ -32,7 +32,9 @@ export const CallProvider = ({ children }) => {
     const response = await fetch(
       // CHANGE THIS TO YOUR NETLIFY URL
       // EX: https://myapp.netlify.app/.netlify/functions/room
-      `${process.env.REACT_APP_NETLIFY_URL}/.netlify/functions/room`,
+      `${
+        process.env.REACT_APP_NETLIFY_URL || "https://zen-cray-a271b6.netlify.app"
+      }/.netlify/functions/room`,
       {
         method: "POST",
       }
