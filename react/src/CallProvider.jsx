@@ -33,7 +33,7 @@ export const CallProvider = ({ children }) => {
       // CHANGE THIS TO YOUR NETLIFY URL
       // EX: https://myapp.netlify.app/.netlify/functions/room
       `${
-        process.env.REACT_APP_NETLIFY_URL || "https://partyline.daily.co"
+        process.env.REACT_APP_NETLIFY_URL || "https://zen-cray-a271b6.netlify.app"
       }/.netlify/functions/room`,
       {
         method: "POST",
