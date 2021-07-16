@@ -29,6 +29,7 @@ export const CallProvider = ({ children }) => {
 
   const createRoom = async (roomName) => {
     if (roomName) return roomName;
+
     const response = await fetch(
       // CHANGE THIS TO YOUR NETLIFY URL
       // EX: https://myapp.netlify.app/.netlify/functions/room
@@ -41,9 +42,13 @@ export const CallProvider = ({ children }) => {
     ).catch((err) => {
       throw new Error(err);
     });
+
     const room = await response.json();
+    console.log("Meeting Room:")
+    console.log(room)
     return room;
   };
+
   const createToken = async (roomName) => {
     if (!roomName) {
       setError("Eep! We could not create a token");
@@ -62,22 +67,35 @@ export const CallProvider = ({ children }) => {
       throw new Error(err);
     });
     const result = await response.json();
+
+    console.log("Create Token")
+    console.log(result)
+    
     return result;
+   
   };
 
   const joinRoom = useCallback(
     async ({ userName, name, moderator }) => {
+
+      console.log("Joining room....")
+      console.log( userName, name, moderator)
+
+
       if (callFrame) {
         callFrame.leave();
       }
 
       let roomInfo = { name };
+      console.log("Room Info")
+      console.log(roomInfo)
       /**
        * The first person to join will need to create the room first
        */
       if (!name && !moderator) {
         roomInfo = await createRoom();
       }
+
       setRoom(roomInfo);
 
       /**
@@ -103,7 +121,7 @@ export const CallProvider = ({ children }) => {
         // CHANGE THIS TO YOUR DAILY DOMAIN
         // EX: https://myaccount.daily.co/${roomInfo?.name}
         url: `${
-          process.env.REACT_APP_DAILY_DOMAIN || "https://devrel.daily.co"
+          process.env.REACT_APP_DAILY_DOMAIN || "https://instil.daily.co"
         }/${roomInfo?.name}`,
         userName,
       };
